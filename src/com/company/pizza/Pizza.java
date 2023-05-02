@@ -1,10 +1,13 @@
 package com.company.pizza;
 
+import java.io.BufferedReader;
+
 public class Pizza {
 
     private int price;
     private int basePizzaPrice;
     private boolean veggie;
+    private boolean togo;
     private int extraCheesePrice = 100;
     private int extraTopping = 150;
     private int backpack = 20;
@@ -17,25 +20,25 @@ public class Pizza {
     public Pizza(boolean veggie) {
         this.veggie = veggie;
         if (this.veggie) {
-            System.out.println("----------\nwith veggie\n-----------");
             this.price = 300;
         } else {
-            System.out.println("------------\nWithout veggie\n-------------");
             this.price = 400;
         }
         this.basePizzaPrice = this.price;
     }
-    public void businessInfo(String businessName, String phone, String street, String address){
-        this.email ="@mainstreetpizza.com";
-        this.businessName = businessName + this.email;
+
+    public void businessInfo(String businessName, String phone, String street, String address) {
+        StringBuilder br = new StringBuilder("@mainstreetpizza.com");
+        this.businessName = businessName;
+        this.email = (this.businessName.replace(" ", "") + br).replace("'", "");
         this.phone = phone;
         this.street = street;
         this.address = address;
     }
+
     public boolean addExtraCheese(boolean cheese) {
         boolean choice = false;
         if (cheese) {
-            System.out.println("Extra cheese added");
             this.price += extraCheesePrice;
             choice = true;
         }
@@ -52,14 +55,11 @@ public class Pizza {
         return choice;
     }
 
-    public boolean isTakeAway(boolean isTogo) {
-        boolean toGo = false;
+    public void isTakeAway(boolean isTogo) {
+        this.togo = isTogo;
         if (isTogo) {
-            System.out.println("Take away opt in");
             this.price += backpack;
-            toGo = true;
         }
-        return toGo;
     }
 
     private int getBill() {
@@ -80,7 +80,15 @@ public class Pizza {
         bizInfo += this.email + "\n";
         bizInfo += this.phone + "\n";
 
-        System.out.printf("%s %sTotal bill %d \n",bizInfo, receipt, getBill());
+        if (this.veggie) {
+            System.out.println("++With veggie++");
+        } else {
+            System.out.println("++Without Veggie++");
+        }
+        if (togo) {
+            System.out.println("Take away opt in");
+        }
+        System.out.printf("%s%sTotal bill %d \n", bizInfo, receipt, getBill());
 
     }
 
