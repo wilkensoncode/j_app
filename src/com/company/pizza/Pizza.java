@@ -8,6 +8,11 @@ public class Pizza {
     private int extraCheesePrice = 100;
     private int extraTopping = 150;
     private int backpack = 20;
+    private String email;
+    String businessName;
+    String phone;
+    String street;
+    String address;
 
     public Pizza(boolean veggie) {
         this.veggie = veggie;
@@ -20,7 +25,13 @@ public class Pizza {
         }
         this.basePizzaPrice = this.price;
     }
-
+    public void businessInfo(String businessName, String phone, String street, String address){
+        this.email ="@mainstreetpizza.com";
+        this.businessName = businessName + this.email;
+        this.phone = phone;
+        this.street = street;
+        this.address = address;
+    }
     public boolean addExtraCheese(boolean cheese) {
         boolean choice = false;
         if (cheese) {
@@ -56,12 +67,20 @@ public class Pizza {
     }
 
     public void printBill() {
+        String bizInfo = "";
         String receipt = "";
-        receipt += "base pizza: " + Integer.toString(basePizzaPrice) + "\n";
+        receipt += "base pizza: " + Integer.toString(this.basePizzaPrice) + "\n";
         receipt += "Extra cheese: " + Integer.toString(this.extraCheesePrice) + "\n";
         receipt += "Extra topping: " + Integer.toString(this.extraTopping) + "\n";
         receipt += "Back pack: " + Integer.toString(this.backpack) + "\n";
-        System.out.printf("%sTotal bill %d \n", receipt, getBill());
+
+        bizInfo += this.businessName + "\n";
+        bizInfo += this.street + " ";
+        bizInfo += this.address + "\n";
+        bizInfo += this.email + "\n";
+        bizInfo += this.phone + "\n";
+
+        System.out.printf("%s %sTotal bill %d \n",bizInfo, receipt, getBill());
 
     }
 
